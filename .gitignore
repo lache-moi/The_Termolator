@@ -1,0 +1,8 @@
+legal_entities/*
+legal_feature/cases/*
+legal_feature/citations/*
+OANC-test/background/*
+**/__pycache__/*
+**/.DS_Store
+legal_feature/citations_io.txt
+legal_feature/legal_terms_exclusion/UWash_scotus_output/.DS_Store

@@ -1,6 +1,6 @@
 import os
 import re
-
+import sys
 
 def hasNumbers(inputString):
     return bool(re.search(r'\d', inputString))
@@ -38,9 +38,9 @@ def generate_names_to_exclude(path, citation, file):
                 fwrite.write(c.strip() + '\n')
     fwrite.close()
 
-
-path = "./legal_terms_exclusion/UWash_scotus_output"
-generate_names_to_exclude(path + "/citations", "<citation",
-                          "./legal_terms_exclusion/legislation_names.txt")
-generate_names_to_exclude(path + "/references", "<CITATION",
-                          "./legal_terms_exclusion/case_names.txt")
+if __name__ == '__main__':
+    path = sys.argv[1]
+    generate_names_to_exclude(path, "<citation",
+                              "./legal_terms_exclusion/legislation_names.txt")
+    # generate_names_to_exclude(path + "/references", "<CITATION",
+    #                           "./legal_terms_exclusion/case_names.txt")
