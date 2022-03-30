@@ -1,24 +1,26 @@
 import os
-path = "" ##os.getenv('TERMOLATOR')
 
 SET_OF_EXCLUDING_TERMS = set()
-LEGISLATION = "/legal_feature/legal_terms_exclusion/unique_legislation_names.txt"
-CASE = "/legal_feature/legal_terms_exclusion/unique_case_names.txt"
+# LEGISLATION = "/legal_feature/legal_terms_exclusion/unique_legislation_names.txt"
+# CASE = "/legal_feature/legal_terms_exclusion/unique_case_names.txt"
 
-def legal_filter_setup(path):
+def legal_filter_setup(unique_legislation_name_path):
     global SET_OF_EXCLUDING_TERMS
-    global LEGISLATION
-    global CASE
-    LEGISLATION = path + LEGISLATION
-    with open(LEGISLATION) as f1:
-        for line in f1:
-            SET_OF_EXCLUDING_TERMS.add(line.rstrip())
-    CASE = path + CASE
-    with open(CASE) as f2:
-        for line in f2:
+    # global LEGISLATION
+    # global CASE
+    # LEGISLATION = path + LEGISLATION
+    # with open(LEGISLATION) as f1:
+    #     for line in f1:
+    #         SET_OF_EXCLUDING_TERMS.add(line.rstrip())
+    # CASE = path + CASE
+    # with open(CASE) as f2:
+    #     for line in f2:
+    #         SET_OF_EXCLUDING_TERMS.add(line.rstrip())
+    with open(unique_legislation_name_path) as f:
+        for line in f:
             SET_OF_EXCLUDING_TERMS.add(line.rstrip())
 
-def filter_name(lemma, set_of_excluding_terms=SET_OF_EXCLUDING_TERMS):
+def filter_name(lemma, set_of_excluding_terms = SET_OF_EXCLUDING_TERMS):
 	terms = lemma.split(" ")
 	if terms[-1] == "act":
 		return True

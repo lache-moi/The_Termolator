@@ -222,7 +222,7 @@ def get_morph_variants(word_seq,pos_seq,POS,mitre=False):
                 big_variant = variant+suffix
                 if (len(variant)>3) and (variant[-3:] == 'ing') and (not mitre):
                     vp_ing.append(big_variant)
-                output.append(big_variant)                
+                output.append(big_variant)
             main_base = word_seq[0].lower()
         elif word_seq[0] in verb_base_form_dict:
             suffix = make_term_suffix(word_seq[1:])
@@ -320,7 +320,7 @@ def get_np_lemma (np1_base,prep=False,np2=False):
         if prep:
             return(np2_lemma + ' ' + np1_out,map1 or map2)
         else:
-            return(np1_out + ' ' + np2_lemma,map1 or map2)                                              
+            return(np1_out + ' ' + np2_lemma,map1 or map2)
 
 
 def get_np_vp_lemma (np_base,vp_base,vp_ing,np_rating,verb_base):
@@ -547,10 +547,10 @@ def term_classify(line,mitre=False):
                     chunks.append(current_chunk)
                 current_chunk = ['NP',[pos,word]]
                 if pos == 'DET':
-                   unnecessary_pieces = 1 + unnecessary_pieces 
+                   unnecessary_pieces = 1 + unnecessary_pieces
             elif pos in ['SKIPABLE_ADJ','ADJECTIVE','TECH_ADJECTIVE','NATIONALITY_ADJ']:
                 if (not (pos in ['TECH_ADJECTIVE','NATIONALITY_ADJ'])) and (not term_dict_check(word,stat_adj_dict)):
-                    unnecessary_pieces = 1 + unnecessary_pieces                    
+                    unnecessary_pieces = 1 + unnecessary_pieces
                 if current_chunk:
                     if current_chunk[0]=='NP':
                         current_chunk.append([pos,word])
@@ -870,7 +870,7 @@ def ok_statistical_term(term,lenient=False,penalize_initial_the=False):
         if rating == 'Medium':
             well_formedness = well_formedness+.1
         elif rating == 'Bad':
-            well_formedness = well_formedness+.25            
+            well_formedness = well_formedness+.25
         return(True,classification,chunks,rating,well_formedness)
     elif classification in ['SIMPLE','HYPHENATION']:
         POS = guess_pos(term.lower(),term.istitle(),case_neutral=True)
@@ -894,7 +894,7 @@ def ok_statistical_term(term,lenient=False,penalize_initial_the=False):
         else:
             well_formedness = well_formedness * .5
             return(False,POS,chunks,rating,well_formedness)
-    elif (classification == 'In_or_Out_of_Dictionary'): 
+    elif (classification == 'In_or_Out_of_Dictionary'):
         POS = guess_pos(term.lower(),term.istitle(),case_neutral=True)
     well_formedness = well_formedness * .5
     return(False,classification,chunks,rating,well_formedness)
@@ -960,7 +960,7 @@ def filter_terms (infile, \
     final_output = []
     for line_list in line_lists:
         num = num+1
-        for term in line_list[:-1]:              
+        for term in line_list[:-1]:
             keep,classification,chunks,rating,well_formedness_score = ok_statistical_term(term,lenient=(num < lenient_simple_threshold),penalize_initial_the=penalize_initial_the)
             rank_score = stat_rank_scores[line_list[-1]]
             confidence = rank_score * well_formedness_score
@@ -1010,7 +1010,7 @@ def filter_terms (infile, \
                 final_output.append([combined_score,out])
             else:
                 webscore = False
-                # out.extend([False,out[-1]]) 
+                # out.extend([False,out[-1]])
                 ## out.extend([False,0]) ## fixing mismatch (2/12/20)
                 final_output.append([confidence,out])
             stream = False
@@ -1055,13 +1055,12 @@ def main(args):
     ## print(args) ## for debugging
     global special_domains
     global TERMOLATOR
-    global LEGISLATION
-    global CASE
+    # global LEGISLATION
+    # global CASE
     special_domains = []
     TERMOLATOR = args[8]
-    LEGISLATION = TERMOLATOR + "/legal_feature/legal_terms_exclusion/unique_legislation_names.txt"
-    CASE = TERMOLATOR + "/legal_feature/legal_terms_exclusion/unique_case_names.txt"
-    legal_filter_setup(TERMOLATOR)
+    unique_legislation_names_path = TERMOLATOR + "/legal_feature/legal_terms_exclusion/unique_legislation_names.txt"
+    legal_filter_setup(unique_legislation_name_path)
     file_prefix = args[1]
     web_score_dict_file = args[2]
     if args[3].lower() in ['true','t']:
@@ -1074,7 +1073,7 @@ def main(args):
         print('Use "False" otherwise.')
     max_term_number = int(args[4])
     abbr_file_list = args[6]
-    if (len(args)>7) and (args[7].lower() != 'false'):        
+    if (len(args)>7) and (args[7].lower() != 'false'):
         special_domains.extend(args[7].split('+'))
     initialize_utilities()
     input_file = file_prefix + ".all_terms"
@@ -1084,4 +1083,4 @@ def main(args):
     reject_file = file_prefix + ".rejected-terms"
     filter_terms(input_file,output_file,abbr_full_file,full_abbr_file,use_web_score=use_web_score,numeric_cutoff=max_term_number,reject_file=reject_file,web_score_dict_file=web_score_dict_file,abbr_files=abbr_file_list)
 
-if __name__ == '__main__': sys.exit(main(sys.argv)) 
+if __name__ == '__main__': sys.exit(main(sys.argv))
