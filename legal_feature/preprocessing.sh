@@ -17,11 +17,11 @@ python3 $TERMOLATOR/legal_feature/classify_fbground.py
 echo "Generate legal terms to exclude: case/legislation names"
 python3 $TERMOLATOR/legal_feature/legal_terms_exclusion/create_citations_io.py
 cd $TERMOLATOR/legal_feature/legal_entities
-python3 run_citations.py $TERMOLATOR/legal_feature/citations_io.txt
+python3 run_citations.py ../citations_io.txt
 cd $TERMOLATOR/legal_feature
 python3 $TERMOLATOR/legal_feature/legal_terms_exclusion/legal_terms_extraction.py $TERMOLATOR/legal_feature/citations
 python3 $TERMOLATOR/legal_feature/legal_terms_exclusion/lower_unique_terms.py
 
-## Step 3: Generating the foreground and background for $1 issue ID $2
+# ## Step 3: Generating the foreground and background for $1 issue ID $2
 echo "Generating the foreground and background for $1 issue ID $2"
 python3 $TERMOLATOR/legal_feature/create_fbground.py $2 $1

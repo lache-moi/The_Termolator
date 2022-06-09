@@ -23,10 +23,10 @@ def main(args):
         with open(io_file) as instream:
                 pbar = tqdm(instream)
                 for line in pbar:
-                       line = line.strip(os.linesep)
-                       infile,outfile = line.split(';')
-                       base_file = get_base_file(infile)
-                       pbar.set_description(f"case: {base_file}")
-                       case_and_legislative_citations_to_file(infile,base_file,outfile)
+                        line = line.strip(os.linesep)
+                        infile,outfile = line.split(';')
+                        base_file = get_base_file(infile)
+                        pbar.set_description(f"case: {base_file}")
+                        case_and_legislative_citations_to_file(infile,base_file,outfile)
 
 if __name__ == '__main__': sys.exit(main(sys.argv))
