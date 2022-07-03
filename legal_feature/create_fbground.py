@@ -34,5 +34,5 @@ def createFBground(issueID, json_filename):
 
 if __name__ == "__main__":
     issueID = sys.argv[1]
-    json_filename = sys.argv[2] + 'issues.json'
+    json_filename = sys.argv[2]
     createFBground(issueID, json_filename)
